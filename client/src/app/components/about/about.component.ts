@@ -25,7 +25,6 @@ export class AboutComponent implements OnInit {
   In that function, update the name, profile_pic, and profile_link fields */
 
   fetchAboutMeFromSpotify() {
-
     // Make an HTTP request to the Spotify API using the Spotify service.
     this.spotifyService.aboutMe().then((data: ProfileData) => {
       this.name = data.name;

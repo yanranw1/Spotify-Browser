@@ -25,7 +25,6 @@ export class SpotifyService {
     console.log("requested URL: ",this.expressBaseUrl+endpoint);
     let promise = this.http.get(this.expressBaseUrl+endpoint).toPromise();
     return promise;
-    
   }
 
   aboutMe():Promise<ProfileData> {
@@ -33,6 +32,7 @@ export class SpotifyService {
     return this.sendRequestToExpress('/me').then((data) => {
       return new ProfileData(data);
     });
+    
   }
 
   searchFor(category:string, resource:string):Promise<ResourceData[]> {
@@ -40,7 +40,19 @@ export class SpotifyService {
     //Make sure you're encoding the resource with encodeURIComponent().
     //Depending on the category (artist, track, album), return an array of that type of data.
     //JavaScript's "map" function might be useful for this, but there are other ways of building the array.
-    return null as any;
+    const endpoint = `/search/${category}/${encodeURIComponent(resource)}`;
+
+    return this.sendRequestToExpress(endpoint).then((data) => {
+      console.log(category+"s")
+      if (category === 'Album') {
+        return data[category+"s"].items.map(item => new AlbumData(item));
+      } else if (category === 'Track') {
+        return data[category+"s"].items.map(item => new TrackData(item));
+      } else {
+        console.log(data[category+"s"])
+        return data[category+"s"].items.map(item => new ArtistData(item));
+      } 
+    });
   }
 
   getArtist(artistId:string):Promise<ArtistData> {
