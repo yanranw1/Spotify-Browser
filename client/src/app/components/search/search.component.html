@@ -5,7 +5,7 @@
 <select [(ngModel)]="searchCategory">
 	<option value=""></option>
 	<option value="album">album</option>
-	<option value="track">arack</option>
+	<option value="track">track</option>
 	<option value="artist">artist</option>
 	<!--TODO: loop over searchCategories to create dropdown options-->
 	<!--populate body and text value https://www.w3schools.com/tags/att_option_selected.asp-->
@@ -18,8 +18,8 @@
 <div *ngIf="searchCategory === 'artist' || searchCategory === 'album'">
 	<app-carousel [resources]="resources" [carouselId]="'carouselId'"></app-carousel>
 </div>
-  
+
 <!-- Display a track-list component if searching for a track -->
 <div *ngIf="searchCategory === 'track'">
-	<track-list [tracks]="tracks"></track-list>
+	<app-track-list [tracks]= "resources"></app-track-list>
 </div>
