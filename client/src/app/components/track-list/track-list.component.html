@@ -13,20 +13,20 @@
 	</thead>
 	<tbody>
 		<!--TODO: Use *ngFor to loop over tracks-->
-		<tr *ngFor="let track of tracks; let index=index"></tr>
-		<tr>
+		<tr *ngFor="let t of tracks; let first = first; index as i">
+		
 			<!--TODO: Populate with row index (start with 1!)-->
-			<td>{{index + 1}}</td>
+			<td>{{i + 1}}</td>
 			<td>
 				<!--TODO: link to the endpoint for that track, display the track's name-->
-				<a href="/track/{{track.id}}">{{ track.name }}</a>
+				<a href="track/{{t.id}}">{{ t.name }}</a>
 			</td>
 			<!--TODO: display the track's duration-->
-			<td>{{track.durationStr}}</td>
+			<td>{{t.durationStr}}</td>
 			<!--TODO: Use *ngIf to hide if hideArtist is true; link to the first artist's endpoint and display the first artist's name-->
-			<td *ngIf="!hideArtist"><a [href]="track.primaryArtist.url">{{track.primaryArtist.name}}</a></td>
+			<td *ngIf="!hideArtist"><a href="artist/{{t.primaryArtist.id}}">{{t.primaryArtist.name}}</a></td>
 			<!--TODO: Use *ngIf to hide if hideAlbum is true; link to the album's endpoint and display the album's name-->
-			<td *ngIf="!hideAlbum"><a [href]="track.album.url">{{track.album.name}}</a></td>
+			<td *ngIf="!hideAlbum"><a href="album/{{t.album.id}}">{{t.album.name}}</a></td>
 		</tr>
 	</tbody>
 </table>

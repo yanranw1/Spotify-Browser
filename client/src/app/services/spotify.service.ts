@@ -44,7 +44,7 @@ export class SpotifyService {
 
     return this.sendRequestToExpress(endpoint).then((data) => {
       console.log(category+"s")
-      if (category === 'Album') {
+      if (category === 'album') {
         return data[category+"s"].items.map(item => new AlbumData(item));
       } else if (category === 'track') {
         // return data[category+"s"].items.map(item => new TrackData(item));
@@ -114,7 +114,7 @@ export class SpotifyService {
 
   getAlbum(albumId:string):Promise<AlbumData> {
     //TODO: use the album endpoint to make a request to express.
-    let endpoint = `/albums/${encodeURIComponent(albumId)}`;
+    let endpoint = `/album/${encodeURIComponent(albumId)}`;
     return this.sendRequestToExpress(endpoint)
     .then((data) => {
       return new AlbumData(data);
@@ -126,7 +126,7 @@ export class SpotifyService {
 
   getTracksForAlbum(albumId:string):Promise<TrackData[]> {
     //TODO: use the tracks for album endpoint to make a request to express.
-    let endpoint = `/artist-tracks/${encodeURIComponent(albumId)}`;
+    let endpoint = `/album-tracks/${encodeURIComponent(albumId)}`;
     return this.sendRequestToExpress(endpoint)
     .then((data) => {
       return data['items'].map((item) => { return new TrackData(item)});
