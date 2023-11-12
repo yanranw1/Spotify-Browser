@@ -150,6 +150,16 @@ export class SpotifyService {
 
   getAudioFeaturesForTrack(trackId:string):Promise<TrackFeature[]> {
     //TODO: use the audio features for track endpoint to make a request to express.
-    return null as any;
+    let endpoint = `/track-audio-features/${encodeURIComponent(trackId)}`;
+    return this.sendRequestToExpress(endpoint)
+    .then((data) => {
+      console.log("data",data)
+      return TrackFeature.FeatureTypes.map((item) => { return new TrackFeature(item, data[item])});
+    })
+    .catch((error) => {
+      console.log("getAudioFeaturesForTrack error: "+ error);
+      return null;
+    });
   }
 }
+
